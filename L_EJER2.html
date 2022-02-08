@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Document</title>
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+ <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+</head>
+<style>
+ #map {
+ width: 100%;
+ height: 580px;
+ box-shadow: 5px 5px 5px #888;
+ }
+</style>
+<body>
+ <div id='map'>
+ </div>
+ <script>
+var map = L.map('map', {
+center: [1.615692, -75.615549],
+zoom: 5,
+layers: osm,
+scrollWheelZoom: true,
+ });
+ var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+ attribution:
+ '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+ + 'contributors',
+ maxZoom: 10000
+ }).addTo(map);
+
+var myIcon = L.icon({
+iconUrl: ' https://assets.onthehub.com/attachments/15/f956a13b-0f91-e811-8108-000d3af41938/0f8200cc-ad5c-467d-a722-cf135dc00a89.png',
+iconSize: [30, 30],
+popupAnchor: [-1, -10]
+});
+
+var marker2 = L.marker([1.6205189901930572, -75.6043929537897], {icon: myIcon})
+.addTo(map)
+.bindPopup("Localización de <b>MappingGIS.com </b>");
+
+var marker = L.marker([1.6149286656733362, -75.61379186699611], {
+draggable: true,
+title: 'pincha aquí'
+}).addTo(map)
+.bindPopup('Alcaldia de Florencia')
+.openPopup();
+
+var circle = L.circle([1.6149286656733362, -75.61379186699611], 500, {
+color: 'red',
+fillColor: '#f03',
+fillOpacity: 0.5
+}).addTo(map);
+
+
+var marker3 = L.marker([1.6149244096229185, -75.61318088110895], {
+draggable: true,
+title: 'pincha aquí'
+}).addTo(map)
+.bindPopup('Parque Santander')
+.openPopup();
+
+
+var polygon = L.polygon([
+[1.6151184873221682, -75.61351850790251],
+[1.615267617379824, -75.61300700163675],
+[1.6147392708405535, -75.61276545701125],
+[1.6146171261869684, -75.6133153262484]
+]).addTo(map)
+.bindPopup ('Mercaolid');
+
+var pointA = new L.LatLng(1.6199108435252643, -75.6026976929899); 
+var pointB = new L.LatLng(1.6191270686371175, -75.60106311815989);
+var pointC = new L.LatLng(1.618523206947689, -75.59998295614588);
+var pointD = new L.LatLng(1.618995794366174, -75.59908993457528);
+var pointE = new L.LatLng(1.6186118170944515, -75.59709376883531);
+var pointF = new L.LatLng(1.6234489287031724, -75.59636031410705);
+var pointG = new L.LatLng(1.6247911515345266, -75.59455390754239);
+var pointH = new L.LatLng(1.6247008675248993, -75.59053164212928);
+var pointI = new L.LatLng(1.6265847932353545, -75.59057981294421);
+
+
+var latlngs = [pointA, pointB,pointC,pointD,pointE,pointF,pointG,pointH,pointI];
+var polyline = L.polyline(
+latlngs, {color: 'red'}
+)
+.addTo(map)
+.bindPopup ('Avda. Juan Carlos I');
+ 
+ L.tileLayer.wms("http://localhost:8080/geoserver/earth/wms", {
+ layers: ['earth:ciudades', 'earth:hidrografia_mundo'],
+ format: 'image/png',
+ transparent: true,
+ attribution: "Weather data © 2012 IEM Nexrad"
+ }).addTo(map);
+ L.control.scale().addTo(map);
+ </script>
+</body>
+</script>
